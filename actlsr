@@ -1,0 +1,46 @@
+#!/usr/local/bin/perl
+
+use 5.010;
+use warnings;
+use strict;
+
+# create activator listener for command
+# usage: actlsr 'ls -la'
+#        respring device and assign to some gesture
+
+my $cache = '/var/mobile/Library/Caches/libactivator.plist';
+my $t = time();
+
+sub lsr {
+    my($cmd, $type) = @_;
+
+    my $name = lc $cmd; $name =~ s/([a-z].*?)(\ .*)/$1/; $name .= $t;
+    my $key = '.run.'; $key = '.show.' if $type eq 'Message';
+
+    my $lsr = {
+        uuid    =>  'libactivator.' . lc $type . $key . $name,
+        title   =>  "\"$cmd\"", 
+        type    =>  'LA' . $type . 'Listeners',
+        action  =>  sub { 
+            $cmd = $cmd . ' && activator send libactivator.message.show.' . $name;
+            return 'ok' if $type eq 'Message';
+            return $cmd if $type eq 'Command';
+        },
+    };
+};
+
+for(qw< Command Message >){
+    my $c = join ' ',@ARGV;
+    my $a = lsr("$c", $_);
+
+    my $action = $a->{action}->();
+    my $uuid = $a->{uuid};
+    my $key = lc $_;
+
+    if(`activator get $a->{type}` eq $uuid){ return }
+    system("plutil -key $a->{type} -dict $cache") unless `activator get $a->{type}`;
+    system("plutil -key $a->{type} -key $uuid -dict $cache");
+    system("plutil -key $a->{type} -key $uuid -key title -value $a->{title} $cache");
+    system("plutil -key $a->{type} -key $uuid -key $key -value \"$action\" $cache");
+    system("plutil -key $a->{type} -key $uuid -key banner -value 1 $cache") if /Message/;
+};
