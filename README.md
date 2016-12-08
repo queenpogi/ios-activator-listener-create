@@ -17,7 +17,7 @@ create-activator-listener 'command -param -param'
 ```
 
 ```perl
-# from perl script (not finished yet)
+# from perl script 
 use iOS::Activator::Listener::Create qw< activator_listener >;
 activator_listener("command -param -param");
 ```
