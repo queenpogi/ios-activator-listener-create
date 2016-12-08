@@ -17,7 +17,7 @@ create-activator-listener 'command -param -param'
 ```perl
 # from perl script (not finished yet)
 use iOS::Activator::Listener::Create qw< activator_listener >;
-activator_listener("command");
+activator_listener("command -param -param");
 ```
 
 #INSTALLATION
@@ -26,8 +26,8 @@ activator_listener("command");
 
 **or**
 
+- install 'Erica Utilities' from BigBoss repository
 ```
-# install 'Erica Utilities' from BigBoss repository
 git clone https://github.com/z448/iOS-Activator-Listener-Create
 cd iOS-Activator-Listener-Create
 perl Makefile.PL
