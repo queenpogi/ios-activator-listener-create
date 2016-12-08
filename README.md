@@ -1,6 +1,6 @@
 #NAME 
 
-create-activator-listener - CLI tool and perl module create Activator 'Run Command' listeners 
+create-activator-listener - CLI tool and perl module to create Activator 'Run Command' listeners 
 
 #SYNOPSIS
 
