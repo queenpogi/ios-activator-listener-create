@@ -8,6 +8,5 @@ use iOS::Activator::Listener::Create qw< activator_listener >;
 
 my $setup = activator_listener("$ARGV[0]");
 
-say $setup;
 
 
