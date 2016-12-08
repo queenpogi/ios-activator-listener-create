@@ -30,7 +30,7 @@ activator_listener("command -param -param");
 
 - install 'Erica Utilities' from BigBoss repository
 ```
-git clone https://github.com/z448/iOS-Activator-Listener-Create
+git clone https://github.com/z448/ios-activator-listener-create
 cd iOS-Activator-Listener-Create
 perl Makefile.PL
 make
