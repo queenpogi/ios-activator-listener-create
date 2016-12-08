@@ -3,6 +3,7 @@ package iOS::Activator::Listener::Create;
 use 5.010;
 use warnings;
 use strict;
+use Carp;
 
 =head1 NAME
 
@@ -17,6 +18,8 @@ our $VERSION = '0.01';
 
 my $cache = '/var/mobile/Library/Caches/libactivator.plist';
 my $t = time();
+croak "cant find 'plutil' binary, install 'Erica Utilities' from BigBoss repository to get it" unless `which pluti`;
+
 
 sub activatorKeys {
     my($cmd, $type) = @_;
@@ -38,15 +41,19 @@ sub activatorKeys {
 
 sub activator_listener {
     my $command = shift;
-    for(qw< Command Message >){
-        my $a =  activatorKeys("$command", $_);
-        my $key = lc $_;
+    my $create_listener = sub {
+        for(qw< Command Message >){
+            my $a =  activatorKeys("$command", $_);
+            my $key = lc $_;
 
-        if(`activator get $a->{type}` eq $a->{uuid}){ return }
-        system("plutil -key $a->{type} -dict $cache") unless `activator get $a->{type}`;
-        system("plutil -key $a->{type} -key $a->{uuid} -dict $cache");
-        system("plutil -key $a->{type} -key $a->{uuid} -key title -value $a->{title} $cache");
-        system("plutil -key $a->{type} -key $a->{uuid} -key $key -value \"$a->{action}->()\" $cache");
-        system("plutil -key $a->{type} -key $a->{uuid} -key banner -value 1 $cache") if /Message/;
+            if(`activator get $a->{type}` eq $a->{uuid}){ return }
+            system("plutil -key $a->{type} -dict $cache") unless `activator get $a->{type}`;
+            system("plutil -key $a->{type} -key $a->{uuid} -dict $cache");
+            system("plutil -key $a->{type} -key $a->{uuid} -key title -value $a->{title} $cache");
+            system("plutil -key $a->{type} -key $a->{uuid} -key $key -value \"$a->{action}->()\" $cache");
+            system("plutil -key $a->{type} -key $a->{uuid} -key banner -value 1 $cache") if /Message/;
+        };
     };
+    if(print $create_listener->()){ system("activator send libactivator.system.respring") }
+
 }
