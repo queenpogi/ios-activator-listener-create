@@ -4,8 +4,11 @@ use 5.010;
 use strict;
 use warnings;
 
+use Getopt::Std;
 use iOS::Activator::Listener::Create qw< activator_listener >;
-my $setup = activator_listener("$ARGV[0]");
 
+my $opt = {};
+getopts('c:r',$opt);
 
+print activator_listener($opt);
 
