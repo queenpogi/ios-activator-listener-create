@@ -11,7 +11,7 @@ As not everyone is fan of command line, this way user can install your tool and 
 
 #GIF
 
-<center>![ios-activator-listener-create.gif](https://raw.githubusercontent.com/z448/pgcheck/master/ios-activator-listener-create.gif)</center>
+<center>![ios-activator-listener-create.gif](https://raw.githubusercontent.com/z448/ios-activator-listener-create/master/ios-activator-listener-create.gif)</center>
 
 
 #USAGE
