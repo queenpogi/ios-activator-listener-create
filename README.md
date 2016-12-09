@@ -9,6 +9,11 @@ If you are writting CLI tool for iOS, Activator has very usefull feature to crea
 To create Activator listener during package instalation, include it in a package and put into debian 'postinst' file `create-activator-listener -c 'command -param -param'`
 As not everyone is fan of command line, this way user can install your tool and Activator gesture is created automaticaly so user can just assign it.
 
+#GIF
+
+<center>![ios-activator-listener-create.gif](https://raw.githubusercontent.com/z448/pgcheck/master/ios-activator-listener-create.gif)</center>
+
+
 #USAGE
 
 ```
