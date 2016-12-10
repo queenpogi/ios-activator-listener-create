@@ -8,7 +8,7 @@ If you are writting CLI tool for iOS, Activator has very usefull feature to crea
 
 As not everyone is fan of command line, this way user can install your tool and Activator gesture is created automaticaly so user will just assign it.
 
-To create Activator listener during package instalation, include it in a package and add into debian 'postinst' file `create-activator-listener -c 'command -param -param'`. Don't use `-r` option in `postinst` file because unlike **dpkg**, **Cydia** won't install package correctly as it will respring during execution of `postinst` script. Instead add `substrate` into your `control` file and Cydia will offer respring button after installation.
+To create Activator listener during package instalation, include it in a package and add to debian 'postinst' file `create-activator-listener -c 'command -param -param'`. Don't use `-r` option in `postinst` file because unlike **dpkg**, **Cydia** won't install package correctly as it will respring during execution of `postinst` script. Instead add `substrate` into your `control` file and Cydia will offer respring button after installation.
 
 #GIF
 
